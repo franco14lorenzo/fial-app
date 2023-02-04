@@ -1,3 +1,13 @@
 {
-  "cSpell.words": ["trpc", "TRPC"]
+  "cSpell.words": ["trpc", "TRPC"],
+  "workbench.colorCustomizations": {
+    "commandCenter.border": "#e7e7e799",
+    "sash.hoverBorder": "#1a1a1a",
+    "tab.activeBorder": "#1a1a1a",
+    "titleBar.activeBackground": "#000000",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#00000099",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.color": "#000000"
 }
