@@ -1,0 +1,68 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String?  @unique
+  password  String?
+  name      String?
+  surname   String?
+  lastName  String?
+  phone     String?
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  @@map(name: "users")
+}
+
+model Club {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  schedule    String
+  phone       String
+  address     String
+  latitude    Float
+  longitude   Float
+  courts      Court[]  @relation("ClubCourt")
+  createdAt   DateTime @default(now()) @map(name: "created_at")
+  updatedAt   DateTime @updatedAt @map(name: "updated_at")
+
+  @@map(name: "clubs")
+}
+
+model Court {
+  id          Int      @id @default(autoincrement())
+  name        String
+  active      Boolean  @default(true)
+  description String
+  wall        String
+  floor       String
+  roof        String
+  //booking     Booking[]
+  clubId      Int
+  club        Club     @relation("ClubCourt", fields: [clubId], references: [id])
+  createdAt   DateTime @default(now()) @map(name: "created_at")
+  updatedAt   DateTime @updatedAt @map(name: "updated_at")
+
+  @@map(name: "courts")
+}
+
+// model Booking {
+//   id          Int      @id @default(autoincrement())
+//   date        DateTime
+//   court       Court    @relation(fields: [courtId], references: [id])
+//   courtId     Int
+//   user        User     @relation(fields: [userId], references: [id])
+//   userId      Int
+//   createdAt   DateTime @default(now()) @map(name: "created_at")
+//   updatedAt   DateTime @updatedAt @map(name: "updated_at")
+
+//   @@map(name: "bookings")
+// }
