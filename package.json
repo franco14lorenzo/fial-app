@@ -10,16 +10,23 @@
   },
   "dependencies": {
     "@next/font": "13.1.4",
-    "@types/node": "18.11.18",
+    "@prisma/client": "^4.9.0",
+    "@tanstack/react-query": "^4.24.4",
+    "@trpc/client": "^10.10.0",
+    "@trpc/next": "^10.10.0",
+    "@trpc/react-query": "^10.10.0",
+    "@trpc/server": "^10.10.0",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
     "eslint-config-next": "13.1.4",
     "next": "13.1.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "4.9.4"
+    "typescript": "4.9.4",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
+    "@types/node": "18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
     "autoprefixer": "^10.4.13",
@@ -33,6 +40,9 @@
     "eslint-plugin-react": "^7.32.1",
     "postcss": "^8.4.21",
     "prettier": "^2.8.3",
-    "tailwindcss": "^3.2.4"
+    "prettier-plugin-tailwindcss": "^0.2.1",
+    "prisma": "^4.9.0",
+    "tailwindcss": "^3.2.4",
+    "ts-node": "^10.9.1"
   }
 }
