@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@headlessui/react': ^1.7.9
   '@heroicons/react': ^2.0.14
+  '@hookform/resolvers': ^2.9.10
   '@next-auth/prisma-adapter': ^1.0.5
   '@next/font': 13.1.4
   '@prisma/client': ^4.9.0
@@ -44,6 +45,7 @@ specifiers:
 dependencies:
   '@headlessui/react': 1.7.9_biqbaboplfbrettd7655fr4n2y
   '@heroicons/react': 2.0.14_react@18.2.0
+  '@hookform/resolvers': 2.9.10_react-hook-form@7.43.0
   '@next-auth/prisma-adapter': 1.0.5_77bhi65b6v5jbrzr36rs2ojwe4
   '@next/font': 13.1.4
   '@prisma/client': 4.9.0_prisma@4.9.0
@@ -147,6 +149,14 @@ packages:
       react: '>= 16'
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /@hookform/resolvers/2.9.10_react-hook-form@7.43.0:
+    resolution: {integrity: sha512-JIL1DgJIlH9yuxcNGtyhsWX/PgNltz+5Gr6+8SX9fhXc/hPbEIk6wPI82nhgvp3uUb6ZfAM5mqg/x7KR7NAb+A==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.43.0_react@18.2.0
     dev: false
 
   /@humanwhocodes/config-array/0.11.8:
