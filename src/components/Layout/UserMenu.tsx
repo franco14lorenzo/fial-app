@@ -15,7 +15,7 @@ const UserMenu = () => {
             <Popover.Button
               className={`
                   ${open ? 'shadow-md' : ''}
-                  inline-flex items-center rounded-full p-1 border hover:shadow-md focus:outline-none`}
+                  inline-flex bg-white items-center rounded-full p-1 border hover:shadow-md focus:outline-none`}
             >
               <Bars3Icon className="w-6 h-6 ml-1 mr-3 text-slate-700" />
               {session ? (

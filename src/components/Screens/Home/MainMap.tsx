@@ -16,7 +16,7 @@ const center = {
 function MainMap() {
   return (
     <div className="fixed z-0 w-full h-full mx-auto max-w-7xl">
-      <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS}>
+      <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS || ''}>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
@@ -24,7 +24,10 @@ function MainMap() {
           options={{
             mapId: '9f9764e80450fc13',
             backgroundColor: '#e3e5ea',
-            mapTypeControl: false
+            mapTypeControl: false,
+            streetViewControl: false,
+            fullscreenControl: false,
+            zoomControl: false
           }}
         >
           {/* Child components, such as markers, info windows, etc. */}

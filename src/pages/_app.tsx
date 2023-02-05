@@ -19,7 +19,7 @@ const MyApp = ({
 }>) => {
   return (
     <SessionProvider session={pageProps.session}>
-      <div className={`${inter.variable} font-sans flex flex-col bg-gray-50`}>
+      <div className={`${inter.variable} font-sans flex flex-col min-h-screen`}>
         <Component {...pageProps} />
       </div>
     </SessionProvider>
