@@ -1,11 +1,10 @@
-import { useSession, signIn, signOut } from 'next-auth/react'
+import { Fragment } from 'react'
 import Image from 'next/image'
 import { Popover, Transition } from '@headlessui/react'
-
-import { Fragment } from 'react'
 import { UserCircleIcon, Bars3Icon } from '@heroicons/react/24/solid'
+import { useSession, signIn, signOut } from 'next-auth/react'
 
-const LoginButton = () => {
+const UserMenu = () => {
   const { data: session } = useSession()
 
   return (
@@ -16,7 +15,7 @@ const LoginButton = () => {
             <Popover.Button
               className={`
                   ${open ? 'shadow-md' : ''}
-                  group inline-flex items-center rounded-full p-1 border hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                  inline-flex items-center rounded-full p-1 border hover:shadow-md focus:outline-none`}
             >
               <Bars3Icon className="w-6 h-6 ml-1 mr-3 text-slate-700" />
               {session ? (
@@ -71,4 +70,4 @@ const LoginButton = () => {
   )
 }
 
-export default LoginButton
+export default UserMenu
