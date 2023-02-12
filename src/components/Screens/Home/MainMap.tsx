@@ -1,17 +1,35 @@
 import { GoogleMap, MarkerF, useLoadScript } from '@react-google-maps/api'
 import { useEffect, useState } from 'react'
 
-const defaultConteinerStyle = {
+const CLUBS = [
+  {
+    id: 1,
+    name: 'Lujan Padel',
+    lat: -33.041526,
+    lng: -68.885302
+  },
+  {
+    id: 2,
+    name: 'Vistalba Padel',
+    lat: -33.019867,
+    lng: -68.912848
+  },
+  {
+    id: 3,
+    name: 'Padel Banco Mendoza',
+    lat: -32.986816,
+    lng: -68.867393
+  }
+]
+
+const DEFAULT_CONTAINER_STYLE = {
   width: '100%',
   margin: '0 auto',
   maxWidth: '1280px',
   height: '500px'
 }
-const position = {
-  lat: -33.030853,
-  lng: -68.903616
-}
-const defaultCenter = { lat: -33.030853, lng: -68.903616 }
+
+const DEFAULT_CENTER = { lat: -33.030853, lng: -68.903616 }
 
 interface Position {
   lat: number
@@ -19,14 +37,16 @@ interface Position {
 }
 
 function MainMap({
-  containerStyle = defaultConteinerStyle,
-  center = defaultCenter
+  containerStyle = DEFAULT_CONTAINER_STYLE,
+  center = DEFAULT_CENTER
 }) {
+  const [centerMap, setCenterMap] = useState<Position>(center)
   const [userCoords, setUserCoords] = useState<Position | null>(null)
 
   useEffect(() => {
     getUserPosition().then((position: Position) => {
       setUserCoords(position)
+      setCenterMap(position)
     })
   }, [])
 
@@ -41,7 +61,7 @@ function MainMap({
   return (
     <GoogleMap
       mapContainerStyle={containerStyle}
-      center={center}
+      center={centerMap}
       zoom={14}
       options={{
         mapId: '9f9764e80450fc13',
@@ -64,9 +84,16 @@ function MainMap({
             scale: 0.5,
             strokeColor: 'white'
           }}
-          position={position}
+          position={userCoords}
         />
       )}
+      {CLUBS.map((club) => (
+        <MarkerF
+          key={club.id}
+          title={club.name}
+          position={{ lat: club.lat, lng: club.lng }}
+        />
+      ))}
     </GoogleMap>
   )
 }
