@@ -10,7 +10,8 @@ import HeaderBar from '@/components/Layout/HeaderBar'
 import MainForm from '@/components/Screens/SignIn/MainForm'
 
 export default function SignIn({
-  providers
+  providers,
+  redirectUrl
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <>
@@ -24,7 +25,7 @@ export default function SignIn({
       <HeaderBar showUserMenu={false} />
 
       <main className="w-full h-full mx-auto max-w-7xl pt-[63px] min-h-screen flex flex-col items-center justify-center gap-4 text-sm">
-        <MainForm providers={providers} />
+        <MainForm providers={providers} redirectUrl={redirectUrl} />
       </main>
     </>
   )
@@ -33,9 +34,8 @@ export default function SignIn({
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getServerSession(context.req, context.res, authOptions)
 
-  // If the user is already logged in, redirect.
-  // Note: Make sure not to redirect to the same page
-  // To avoid an infinite loop!
+  const { redirectUrl } = context.query
+
   if (session) {
     return { redirect: { destination: '/' } }
   }
@@ -43,6 +43,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const providers = await getProviders()
 
   return {
-    props: { providers: providers ? Object.values(providers) : [] }
+    props: {
+      providers: providers ? Object.values(providers) : [],
+      redirectUrl
+    }
   }
 }

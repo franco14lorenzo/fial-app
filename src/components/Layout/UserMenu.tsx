@@ -2,11 +2,13 @@ import { Fragment } from 'react'
 import Image from 'next/image'
 import { Popover, Transition } from '@headlessui/react'
 import { UserCircleIcon, Bars3Icon } from '@heroicons/react/24/solid'
-import { useSession, signIn, signOut } from 'next-auth/react'
+import { useSession, signIn } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 const UserMenu = () => {
   const { data: session } = useSession()
+  const { push } = useRouter()
 
   return (
     <>
@@ -42,11 +44,15 @@ const UserMenu = () => {
             >
               <Popover.Panel className="absolute right-0 z-10 transform w-60 top-16 ">
                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                  <div className="relative grid py-2 bg-white font-light">
+                  <div className="relative grid py-2 font-light bg-white">
                     {!session && (
                       <button
-                        className="px-4 py-2 text-sm text-left text-slate-700 hover:bg-gray-100 font-medium"
-                        onClick={() => signIn()}
+                        className="px-4 py-2 text-sm font-medium text-left text-slate-700 hover:bg-gray-100"
+                        onClick={() =>
+                          signIn('google', {
+                            callbackUrl: `${window.location.pathname}/`
+                          })
+                        }
                       >
                         Iniciar Sesión
                       </button>
@@ -54,7 +60,7 @@ const UserMenu = () => {
 
                     <Link
                       href="/add-club"
-                      className="px-4 py-2 text-sm text-left text-slate-700 hover:bg-gray-100 font-normal"
+                      className="px-4 py-2 text-sm font-normal text-left text-slate-700 hover:bg-gray-100"
                     >
                       ¿Tenes un Club?
                     </Link>
@@ -62,7 +68,12 @@ const UserMenu = () => {
                     {session && (
                       <button
                         className="px-4 py-2 text-sm text-left text-slate-700 hover:bg-gray-100"
-                        onClick={() => signOut()}
+                        onClick={() =>
+                          push({
+                            pathname: '/auth/signout',
+                            query: { callbackUrl: window.location.pathname }
+                          })
+                        }
                       >
                         Cerrar Sesión
                       </button>
