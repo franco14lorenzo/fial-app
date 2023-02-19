@@ -9,7 +9,10 @@ import {
   HeartIcon as SolidHeartIcon,
   PhotoIcon
 } from '@heroicons/react/24/solid'
-import { HeartIcon as OutlineHeartIcon } from '@heroicons/react/24/outline'
+import {
+  HeartIcon as OutlineHeartIcon,
+  XMarkIcon
+} from '@heroicons/react/24/outline'
 
 const CLUBS = [
   {
@@ -129,11 +132,20 @@ function MainMap({
             setClubInfo(null)
           }}
         >
-          <article className="flex flex-col gap-4 p-4 overflow-hidden bg-white rounded-lg shadow-lg md:flex-row">
-            <div className="relative bg-gray-200 rounded-lg h-52 w-52">
+          <article className="flex flex-col gap-4 p-4 overflow-hidden bg-white rounded-lg shadow-lg md:flex-row min-w-[300px]">
+            <div className="relative w-full bg-gray-200 rounded-lg h-52 md:w-52">
+              <button
+                className="absolute p-1 bg-gray-800/50 rounded-full top-1.5 right-1.5 "
+                onClick={() => {
+                  setClubInfo(null)
+                }}
+              >
+                <XMarkIcon className="w-5 h-5 text-white" />
+              </button>
+
               <PhotoIcon className="absolute w-20 h-20 text-gray-400 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" />
               <button
-                className="absolute top-0 right-0 p-2 rounded-full"
+                className="absolute bg-gray-800/50 top-1.5 left-1.5 p-1 rounded-full"
                 onClick={() => {
                   if (clubFavs.find((club) => club.id === clubInfo.id)) {
                     setClubFavs(
@@ -145,9 +157,9 @@ function MainMap({
                 }}
               >
                 {clubFavs.find((club) => club.id === clubInfo.id) ? (
-                  <SolidHeartIcon className="w-6 h-6 text-red-500" />
+                  <SolidHeartIcon className="w-5 h-5 text-red-500" />
                 ) : (
-                  <OutlineHeartIcon className="w-6 h-6 text-white" />
+                  <OutlineHeartIcon className="w-5 h-5 text-white" />
                 )}
               </button>
             </div>

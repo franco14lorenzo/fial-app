@@ -40,3 +40,16 @@ div[title='gps-user-position'] {
     opacity: 0;
   }
 }
+
+.gm-style-iw-d {
+  max-height: 100%;
+  overflow: visible !important;
+}
+
+.gm-style-iw {
+  padding: 0 !important;
+}
+
+.gm-ui-hover-effect {
+  display: none !important;
+}
