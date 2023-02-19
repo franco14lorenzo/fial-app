@@ -8,7 +8,7 @@ const ClubList = () => {
   return (
     <section
       className={`w-full max-w-7xl mx-auto flex flex-col flex-1 justify-start items-center  bg-white shadow shadow-black/20 rounded-t-3xl fixed  z-10 min-h-[calc(100vh-60px)] overflow-hidden transition-all duration-200 ease-in-out
-    ${isOpen ? 'top-[62px]' : 'top-[calc(100vh-110px)]'}`}
+    ${isOpen ? 'top-[62px]' : 'top-[calc(100%-110px)]'}`}
     >
       {isOpen ? (
         <button className="" onClick={() => setIsOpen(!isOpen)}>
