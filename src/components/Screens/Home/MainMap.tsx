@@ -1,5 +1,15 @@
-import { GoogleMap, MarkerF, useLoadScript } from '@react-google-maps/api'
+import {
+  GoogleMap,
+  MarkerF,
+  useLoadScript,
+  InfoWindowF
+} from '@react-google-maps/api'
 import { useEffect, useState } from 'react'
+import {
+  HeartIcon as SolidHeartIcon,
+  PhotoIcon
+} from '@heroicons/react/24/solid'
+import { HeartIcon as OutlineHeartIcon } from '@heroicons/react/24/outline'
 
 const CLUBS = [
   {
@@ -36,12 +46,23 @@ interface Position {
   lng: number
 }
 
+interface Club {
+  id: number
+  name: string
+  lat: number
+  lng: number
+}
+
 function MainMap({
   containerStyle = DEFAULT_CONTAINER_STYLE,
   center = DEFAULT_CENTER
 }) {
   const [centerMap, setCenterMap] = useState<Position>(center)
   const [userCoords, setUserCoords] = useState<Position | null>(null)
+
+  const [clubInfo, setClubInfo] = useState<Club | null>(null)
+
+  const [clubFavs, setClubFavs] = useState<Club[]>([])
 
   useEffect(() => {
     getUserPosition().then((position: Position) => {
@@ -92,8 +113,65 @@ function MainMap({
           key={club.id}
           title={club.name}
           position={{ lat: club.lat, lng: club.lng }}
+          onClick={() => {
+            setClubInfo(club)
+          }}
         />
       ))}
+
+      {clubInfo && (
+        <InfoWindowF
+          position={{
+            lat: clubInfo.lat,
+            lng: clubInfo.lng
+          }}
+          onCloseClick={() => {
+            setClubInfo(null)
+          }}
+        >
+          <article className="flex flex-col gap-4 p-4 overflow-hidden bg-white rounded-lg shadow-lg md:flex-row">
+            <div className="relative bg-gray-200 rounded-lg h-52 w-52">
+              <PhotoIcon className="absolute w-20 h-20 text-gray-400 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" />
+              <button
+                className="absolute top-0 right-0 p-2 rounded-full"
+                onClick={() => {
+                  if (clubFavs.find((club) => club.id === clubInfo.id)) {
+                    setClubFavs(
+                      clubFavs.filter((club) => club.id !== clubInfo.id)
+                    )
+                  } else {
+                    setClubFavs([...clubFavs, clubInfo])
+                  }
+                }}
+              >
+                {clubFavs.find((club) => club.id === clubInfo.id) ? (
+                  <SolidHeartIcon className="w-6 h-6 text-red-500" />
+                ) : (
+                  <OutlineHeartIcon className="w-6 h-6 text-white" />
+                )}
+              </button>
+            </div>
+            <div className="flex flex-col justify-between">
+              <div>
+                <h2 className="text-xl font-semibold text-gray-800">
+                  {clubInfo.name}
+                </h2>
+                <p className="text-sm text-gray-600">Lujan de Cuyo, Mendoza</p>
+              </div>
+              <div className="flex flex-row justify-between">
+                <div className="flex flex-col">
+                  <p className="text-sm text-gray-600">Canchas</p>
+                  <p className="text-sm text-gray-600">Precio</p>
+                </div>
+                <div className="flex flex-col">
+                  <p className="text-sm text-gray-600">4</p>
+                  <p className="text-sm text-gray-600">$ 500</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </InfoWindowF>
+      )}
     </GoogleMap>
   )
 }
