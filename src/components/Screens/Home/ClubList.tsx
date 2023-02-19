@@ -12,7 +12,7 @@ const ClubList = () => {
     >
       {isOpen ? (
         <button className="" onClick={() => setIsOpen(!isOpen)}>
-          <ChevronDownIcon className="w-6 h-6 text-gray-500" />
+          <ChevronDownIcon className="w-6 h-6 text-gray-500 my-[6px]" />
         </button>
       ) : (
         <button
