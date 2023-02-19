@@ -5,7 +5,7 @@ const HeaderBar = ({ showUserMenu = true }) => {
   return (
     <>
       <header className="fixed z-50 w-full h-16 bg-white border-b shadow-sm">
-        <div className="flex flex-row items-center justify-between w-full h-full px-3 mx-auto max-w-7xl">
+        <div className="flex flex-row items-center justify-between w-full h-full px-4 mx-auto max-w-7xl">
           <AppLogo />
           <nav className="flex flex-row items-center justify-between gap-2 md:gap-4">
             <Link

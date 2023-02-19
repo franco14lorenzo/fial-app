@@ -44,10 +44,12 @@ div[title='gps-user-position'] {
 .gm-style-iw-d {
   max-height: 100%;
   overflow: visible !important;
+
 }
 
 .gm-style-iw {
   padding: 0 !important;
+  max-width: 100% !important;
 }
 
 .gm-ui-hover-effect {
