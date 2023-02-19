@@ -53,7 +53,8 @@ function MainMap({
         mapTypeControl: false,
         streetViewControl: false,
         fullscreenControl: false,
-        zoomControl: false
+        zoomControl: false,
+        gestureHandling: 'greedy'
       }}
     >
       {userCoords && (
