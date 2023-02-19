@@ -7,8 +7,8 @@ const ClubList = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <section
-      className={`w-full max-w-7xl mx-auto flex flex-col justify-start items-center  bg-white shadow shadow-black/20 rounded-t-3xl absolute  z-10 min-h-screen transition-all duration-200 ease-in-out
-    ${isOpen ? 'top-[64px]' : 'top-[calc(100vh-100px)]'}`}
+      className={`w-full max-w-7xl mx-auto flex flex-col justify-start items-center  bg-white shadow shadow-black/20 rounded-t-3xl absolute  z-10 min-h-[calc(100vh-60px)] overflow-hidden transition-all duration-200 ease-in-out
+    ${isOpen ? 'top-[7%]' : 'top-[88%]'}`}
     >
       {isOpen ? (
         <button className="" onClick={() => setIsOpen(!isOpen)}>
@@ -22,7 +22,7 @@ const ClubList = () => {
       )}
       <SearchClub setIsOpen={setIsOpen} />
 
-      <div className="grid w-full h-full grid-cols-1 gap-4 p-4 bg-white sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid w-full h-full grid-cols-1 gap-4 p-4 overflow-y-auto bg-white sm:grid-cols-2 md:grid-cols-3">
         {CLUBS.map((club) => (
           <ClubCard key={club.id} club={club} />
         ))}
