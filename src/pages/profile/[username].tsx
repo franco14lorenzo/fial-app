@@ -33,8 +33,11 @@ export default function Profile({
       </Head>
       <HeaderBar />
       <main className="w-full h-full mx-auto max-w-5xl pt-[63px]">
-        <header className="flex flex-row items-start w-full px-16 py-8">
-          <button onClick={() => setIsOpen(true)}>
+        <header className="flex flex-col items-start w-full px-16 py-8 sm:flex-row">
+          <button
+            className="mx-auto mb-6 sm:mb-0"
+            onClick={() => setIsOpen(true)}
+          >
             <Image
               src={user.avatar || user.image}
               alt="Picture of the author"
@@ -43,9 +46,9 @@ export default function Profile({
               className="rounded-full"
             />
           </button>
-          <div className="flex flex-col items-start justify-start flex-1 pl-16">
-            <div className="flex flex-row items-center justify-start flex-1 gap-8">
-              <h2 className="text-xl font-medium">{user.username}</h2>
+          <div className="flex flex-col items-center justify-start flex-1 w-full gap-2 sm:items-start sm:pl-16">
+            <div className="flex flex-row items-center justify-center flex-1 w-full gap-8 sm:justify-start">
+              <h2 className="text-xl font-medium">@{user.username}</h2>
               <button
                 className="px-4 py-2 text-sm font-medium text-white rounded-md bg-emerald-500 hover:bg-emerald-600"
                 onClick={handleClick}
