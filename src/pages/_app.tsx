@@ -21,6 +21,9 @@ const MyApp = ({
     <SessionProvider session={pageProps.session}>
       <div className={`${inter.variable} font-sans flex flex-col min-h-screen`}>
         <Component {...pageProps} />
+        <div id="headlessui-portal-root">
+          <div />
+        </div>
       </div>
     </SessionProvider>
   )

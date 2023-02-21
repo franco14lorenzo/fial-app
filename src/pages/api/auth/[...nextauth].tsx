@@ -28,6 +28,16 @@ export const authOptions: NextAuthOptions = {
       if (url.startsWith('/')) return `${baseUrl}${url}`
       else if (new URL(url).origin === baseUrl) return url
       return baseUrl
+    },
+    async session({ session, user }) {
+      if ('username' in user) {
+        session.user = {
+          ...session.user,
+          username: user.username as string
+        }
+      }
+      console.log(session)
+      return session
     }
   },
   events: {

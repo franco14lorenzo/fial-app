@@ -58,6 +58,16 @@ const UserMenu = () => {
                       </button>
                     )}
 
+                    {session && (
+                      <Link
+                        href="/profile/[username]"
+                        as={`/profile/${session?.user?.username}`}
+                        className="px-4 py-2 text-sm font-normal text-left text-slate-700 hover:bg-gray-100"
+                      >
+                        Mi Perfil
+                      </Link>
+                    )}
+
                     <Link
                       href="/add-club"
                       className="px-4 py-2 text-sm font-normal text-left text-slate-700 hover:bg-gray-100"
