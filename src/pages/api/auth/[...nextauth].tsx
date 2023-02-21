@@ -1,7 +1,8 @@
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import prisma from '../../../lib/prisma'
+import prisma from '@/lib/prisma'
+import { generateUniqueUsername } from '@/utils/dbUtils'
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -27,6 +28,16 @@ export const authOptions: NextAuthOptions = {
       if (url.startsWith('/')) return `${baseUrl}${url}`
       else if (new URL(url).origin === baseUrl) return url
       return baseUrl
+    }
+  },
+  events: {
+    async createUser(user) {
+      const firstEmailPart = user.user.email?.split('@')[0] || ''
+      const username = await generateUniqueUsername(firstEmailPart)
+      await prisma.user.update({
+        where: { id: user.user.id },
+        data: { username }
+      })
     }
   }
 }
