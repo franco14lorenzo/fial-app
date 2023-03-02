@@ -37,7 +37,7 @@ export const authOptions: NextAuthOptions = {
           username: user.username as string
         }
       }
-      console.log(session)
+
       return session
     }
   },
