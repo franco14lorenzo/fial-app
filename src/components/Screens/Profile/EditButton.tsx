@@ -151,7 +151,7 @@ const EditButton = () => {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex items-center justify-center min-h-full p-4 text-left">
+            <div className="flex items-center justify-center min-h-full text-left">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
