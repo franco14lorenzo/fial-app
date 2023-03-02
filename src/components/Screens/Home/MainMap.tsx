@@ -16,6 +16,7 @@ import {
 import { CLUBS } from '@/constants/mocks'
 import { DEFAULT_CENTER, DEFAULT_CONTAINER_STYLE } from '@/constants/googleMap'
 import { getUserPosition } from '@/utils/geoUtils'
+import Spinner from '@/components/Layout/Spinner'
 import type { Club, Position } from '@/types'
 
 function MainMap({
@@ -39,7 +40,11 @@ function MainMap({
   })
 
   if (!isLoaded) {
-    return <div>Cargando...</div>
+    return (
+      <div className="grid w-full h-[calc(100%-110px)] place-content-center bg-gray-50">
+        <Spinner width={32} height={32} />
+      </div>
+    )
   }
 
   return (
