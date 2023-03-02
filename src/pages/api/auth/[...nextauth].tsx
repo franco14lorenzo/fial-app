@@ -33,6 +33,7 @@ export const authOptions: NextAuthOptions = {
       if ('username' in user) {
         session.user = {
           ...session.user,
+          id: user.id as string,
           username: user.username as string
         }
       }

@@ -9,3 +9,10 @@ export interface Club {
   lat: number
   lng: number
 }
+
+export interface User {
+  name: string
+  email: string
+  image: string
+  username: string
+}

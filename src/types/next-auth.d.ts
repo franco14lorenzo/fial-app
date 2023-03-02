@@ -6,7 +6,7 @@ declare module 'next-auth' {
    */
   export interface Session {
     user: {
-      /** The user's postal address. */
+      id: string
       username: string
     } & DefaultSession['user']
   }

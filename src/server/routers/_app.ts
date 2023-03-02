@@ -1,8 +1,9 @@
 import { z } from 'zod'
-import { procedure, router } from '../trpc'
+import { publicProcedure, router } from '../trpc'
+import { usersRouter } from './users'
 
 export const appRouter = router({
-  hello: procedure
+  hello: publicProcedure
     .input(
       z.object({
         text: z.string()
@@ -12,7 +13,8 @@ export const appRouter = router({
       return {
         greeting: `hello ${input.text}`
       }
-    })
+    }),
+  users: usersRouter
 })
 
 // export type definition of API

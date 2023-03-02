@@ -23,7 +23,7 @@ const UserMenu = () => {
               <Bars3Icon className="w-6 h-6 ml-1 mr-3 text-slate-700" />
               {session ? (
                 <Image
-                  className="rounded-full"
+                  className="object-cover object-center rounded-full aspect-square"
                   src={session?.user?.image || ''}
                   alt="Picture of the author"
                   width={30}
