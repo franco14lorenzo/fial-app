@@ -2,7 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['lh3.googleusercontent.com']
+    domains: ['lh3.googleusercontent.com', 'zsxqbrxszrvvdmphbdas.supabase.co'],
+    loader: 'custom',
+    loaderFile: './src/lib/supabase.ts'
   }
 }
 
