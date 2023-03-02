@@ -10,6 +10,7 @@ import { z } from 'zod'
 import { v4 as uuidv4 } from 'uuid'
 import uploadFile from '@/services/uploadFile'
 import { trpc } from '@/utils/trpc'
+import Spinner from '@/components/Layout/Spinner'
 
 const schema = z.object({
   image: z.any(),
@@ -20,6 +21,7 @@ const schema = z.object({
 type Schema = z.infer<typeof schema>
 
 const EditButton = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [newImage, setNewImage] = useState<string | null>(null)
   const {
     isSuccess: isUpdateImageSuccess,
@@ -31,30 +33,6 @@ const EditButton = () => {
     data: updateInfoData,
     mutate: mutateUpdateInfo
   } = trpc.users.updateInfo.useMutation()
-
-  useEffect(() => {
-    if (isUpdateImageSuccess) {
-      const username = updateImageData?.username
-      fetch(
-        `/api/revalidate?secret=KN3p=JQ1p4ijZFuWK92w0vepaPkWb92aJ0n816um=ho=&path=/profile/${username}`
-      ).then(() => {
-        window.location.replace(`/profile/${username}`)
-      })
-    }
-    if (isUpdateInfoSuccess) {
-      const username = updateInfoData?.username
-      fetch(
-        `/api/revalidate?secret=KN3p=JQ1p4ijZFuWK92w0vepaPkWb92aJ0n816um=ho=&path=/profile/${username}`
-      ).then(() => {
-        window.location.replace(`/profile/${username}`)
-      })
-    }
-  }, [
-    isUpdateImageSuccess,
-    updateImageData,
-    isUpdateInfoSuccess,
-    updateInfoData
-  ])
 
   const { data: session } = useSession()
   const [isOpen, setIsOpen] = useState(false)
@@ -82,6 +60,8 @@ const EditButton = () => {
   }, [watchImage])
 
   const onSubmit = async (data: Schema) => {
+    setIsSubmitting(true)
+
     if (data.image[0] instanceof File) {
       const userId = session?.user.id
       const file = data.image[0]
@@ -93,21 +73,53 @@ const EditButton = () => {
         fileName &&
         mutateUpdateImage({ id: userId, image: `avatars/${fileName.path}` })
     }
-    console.log('update info')
-    console.log(data.name, session?.user.name)
 
     if (
       data.username !== session?.user.username ||
       data.name !== session?.user.name
     ) {
-      console.log('update info')
       mutateUpdateInfo({
         id: session?.user.id as string,
         username: data.username,
         name: data.name
       })
     }
+
+    setIsSubmitting(false)
   }
+
+  useEffect(() => {
+    if (isUpdateImageSuccess) {
+      setIsSubmitting(true)
+      const username = updateImageData?.username
+      fetch(
+        `/api/revalidate?secret=KN3p=JQ1p4ijZFuWK92w0vepaPkWb92aJ0n816um=ho=&path=/profile/${username}`
+      ).then(() => {
+        window.location.replace(`/profile/${username}`)
+      })
+    }
+    if (isUpdateInfoSuccess) {
+      setIsSubmitting(true)
+      const username = updateInfoData?.username
+      fetch(
+        `/api/revalidate?secret=KN3p=JQ1p4ijZFuWK92w0vepaPkWb92aJ0n816um=ho=&path=/profile/${username}`
+      ).then(() => {
+        username !== session?.user.username
+          ? fetch(
+              `/api/revalidate?secret=KN3p=JQ1p4ijZFuWK92w0vepaPkWb92aJ0n816um=ho=&path=/profile/${session?.user.username}`
+            ).then(() => {
+              window.location.replace(`/profile/${username}`)
+            })
+          : window.location.replace(`/profile/${username}`)
+      })
+    }
+  }, [
+    isUpdateImageSuccess,
+    updateImageData,
+    isUpdateInfoSuccess,
+    updateInfoData,
+    session?.user.username
+  ])
 
   const handleClick = () => {
     setIsOpen(true)
@@ -123,7 +135,7 @@ const EditButton = () => {
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="relative z-10"
+          className="relative z-50"
           onClose={() => setIsOpen(false)}
         >
           <Transition.Child
@@ -164,12 +176,12 @@ const EditButton = () => {
                   </Dialog.Title>
                   <div className="flex flex-col items-center justify-center w-full h-full p-4 space-y-4">
                     <form
-                      className="flex flex-col items-center justify-center w-full h-full space-y-4"
+                      className="flex flex-col items-center justify-center w-full h-full space-y-4 text-center sm:text-left"
                       onSubmit={handleSubmit(onSubmit)}
                     >
                       <div className="flex flex-col items-center justify-center w-full h-full space-y-4">
                         <div className="flex flex-col items-center justify-center w-full h-full space-y-4">
-                          <div className="relative flex items-center justify-center w-full h-full gap-4">
+                          <div className="relative flex flex-col items-center justify-center w-full h-full gap-4 sm:flex-row">
                             <label
                               htmlFor="image"
                               className="text-base font-medium text-gray-900 w-52 dark:text-white-darkMode"
@@ -198,16 +210,14 @@ const EditButton = () => {
                                   id="image"
                                   className="hidden"
                                   {...register('image')}
-                                  /* onChange={(e) => {
-                                   
-                                  }} */
+                                  accept="image/*"
                                 />
                               </div>
                             </div>
                           </div>
                           <label
                             htmlFor="username"
-                            className="flex items-center justify-center w-full h-full gap-4 my-2"
+                            className="flex flex-col items-center justify-center w-full h-full gap-4 my-2 sm:flex-row"
                           >
                             <span className="text-base font-medium text-gray-900 w-52 dark:text-white-darkMode">
                               Nombre de usuario
@@ -215,7 +225,7 @@ const EditButton = () => {
                             <input
                               type="text"
                               id="username"
-                              className="flex-1 px-4 py-2 text-base text-gray-900 placeholder-gray-500 bg-gray-100 rounded-md "
+                              className="flex-1 px-4 py-2 text-base text-center text-gray-900 placeholder-gray-500 bg-gray-100 rounded-md sm:text-left "
                               {...register('username', {
                                 required: 'Este campo es requerido'
                               })}
@@ -223,7 +233,7 @@ const EditButton = () => {
                           </label>
                           <label
                             htmlFor="name"
-                            className="flex items-center justify-center w-full h-full gap-4 my-2"
+                            className="flex flex-col items-center justify-center w-full h-full gap-4 my-2 sm:flex-row"
                           >
                             <span className="text-base font-medium text-gray-900 w-52 dark:text-white-darkMode">
                               Nombre
@@ -231,25 +241,23 @@ const EditButton = () => {
                             <input
                               type="text"
                               id="name"
-                              className="flex-1 px-4 py-2 text-base text-gray-900 placeholder-gray-500 bg-gray-100 rounded-md "
+                              className="flex-1 px-4 py-2 text-base text-center text-gray-900 placeholder-gray-500 bg-gray-100 rounded-md sm:text-left "
                               {...register('name', {
                                 required: 'Este campo es requerido'
                               })}
                             />
                           </label>
                           <div className="flex items-center justify-center w-full h-full gap-4 my-2">
+                            <span className="hidden text-base font-medium text-gray-900 w-52 dark:text-white-darkMode sm:inline-block"></span>
                             <button
                               type="submit"
-                              className="px-4 py-2 text-sm font-medium text-white rounded-full bg-emerald-500 hover:bg-emerald-600"
+                              className="w-24 px-4 py-2 mx-auto text-sm font-medium text-white rounded-full bg-emerald-500 hover:bg-emerald-600"
                             >
-                              Guardar
-                            </button>
-                            <button
-                              type="button"
-                              className="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-full hover:bg-red-600"
-                              onClick={() => setIsOpen(false)}
-                            >
-                              Cancelar
+                              {isSubmitting ? (
+                                <Spinner color="white" background="#d1d5db" />
+                              ) : (
+                                'Guardar'
+                              )}
                             </button>
                           </div>
                         </div>

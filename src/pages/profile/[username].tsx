@@ -6,11 +6,14 @@ import { useSession } from 'next-auth/react'
 import Avatar from '@/components/Screens/Profile/Avatar'
 import EditButton from '@/components/Screens/Profile/EditButton'
 import FollowButton from '@/components/Screens/Profile/FollowButton'
+import Spinner from '@/components/Layout/Spinner'
 
 export default function Profile({
   user
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
+
+  const isLoading = status === 'loading'
 
   const isOwner = session?.user?.email === user.email
 
@@ -32,7 +35,13 @@ export default function Profile({
                 @{user.username}
               </h2>
 
-              {isOwner ? <EditButton /> : <FollowButton />}
+              {isLoading ? (
+                <Spinner />
+              ) : isOwner ? (
+                <EditButton />
+              ) : (
+                <FollowButton />
+              )}
             </div>
             <h3 className="text-sm font-medium text-gray-500">{user.name}</h3>
           </div>

@@ -5,10 +5,13 @@ import { UserCircleIcon, Bars3Icon } from '@heroicons/react/24/solid'
 import { useSession, signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import Spinner from '@/components/Layout/Spinner'
 
 const UserMenu = () => {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const { push } = useRouter()
+
+  const isUserLoading = status === 'loading'
 
   return (
     <>
@@ -21,7 +24,9 @@ const UserMenu = () => {
                   inline-flex bg-white items-center rounded-full p-1 border hover:shadow-md focus:outline-none`}
             >
               <Bars3Icon className="w-6 h-6 ml-1 mr-3 text-slate-700" />
-              {session ? (
+              {isUserLoading ? (
+                <Spinner />
+              ) : session ? (
                 <Image
                   className="object-cover object-center rounded-full aspect-square"
                   src={session?.user?.image || ''}
