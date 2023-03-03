@@ -4,6 +4,7 @@ import { Session } from 'next-auth'
 import { trpc } from '../utils/trpc'
 import { SessionProvider } from 'next-auth/react'
 import { Inter } from '@next/font/google'
+import { Analytics } from '@vercel/analytics/react'
 
 const inter = Inter({
   variable: '--font-inter',
@@ -21,6 +22,7 @@ const MyApp = ({
     <SessionProvider session={pageProps.session}>
       <div className={`${inter.variable} font-sans flex flex-col min-h-screen`}>
         <Component {...pageProps} />
+        <Analytics />
         <div id="headlessui-portal-root">
           <div />
         </div>
