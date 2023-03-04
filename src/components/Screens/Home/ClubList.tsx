@@ -1,7 +1,7 @@
 import { MagnifyingGlassIcon, ChevronDownIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react'
 import { CLUBS } from '@/constants/mocks'
-import type { Club } from '@/types'
+import type { Club } from '@/types/index.d'
 
 const ClubList = () => {
   const [isOpen, setIsOpen] = useState(false)

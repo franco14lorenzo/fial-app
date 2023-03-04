@@ -17,7 +17,7 @@ import { CLUBS } from '@/constants/mocks'
 import { DEFAULT_CENTER, DEFAULT_CONTAINER_STYLE } from '@/constants/googleMap'
 import { getUserPosition } from '@/utils/geoUtils'
 import Spinner from '@/components/Layout/Spinner'
-import type { Club, Position } from '@/types'
+import type { Club, Position } from '@/types/index.d'
 
 function MainMap({
   containerStyle = DEFAULT_CONTAINER_STYLE,

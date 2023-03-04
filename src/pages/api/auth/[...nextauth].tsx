@@ -2,7 +2,7 @@ import NextAuth, { NextAuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import prisma from '@/lib/prisma'
-import { generateUniqueUsername } from '@/utils/dbUtils'
+import { generateUniqueUsername, saveImage } from '@/utils/dbUtils'
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -43,12 +43,18 @@ export const authOptions: NextAuthOptions = {
   },
   events: {
     async createUser(user) {
-      const firstEmailPart = user.user.email?.split('@')[0] || ''
-      const username = await generateUniqueUsername(firstEmailPart)
-      await prisma.user.update({
-        where: { id: user.user.id },
-        data: { username }
-      })
+      const fileName = await saveImage(
+        user.user.image as string,
+        user.user.id as string
+      )
+      const username = await generateUniqueUsername(user.user.email as string)
+
+      fileName &&
+        user.user.id &&
+        (await prisma.user.update({
+          where: { id: user.user.id },
+          data: { username, image: `avatars/${fileName.path}` }
+        }))
     }
   }
 }

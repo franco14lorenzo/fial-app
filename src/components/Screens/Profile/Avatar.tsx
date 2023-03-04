@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/solid'
-import { User } from '@/types'
+import { User } from '@/types/index.d'
 
 const Avatar = ({ user }: { user: User }) => {
   const [isOpen, setIsOpen] = useState(false)
