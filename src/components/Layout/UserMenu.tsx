@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import Image from 'next/image'
 import { Popover, Transition } from '@headlessui/react'
-import { UserCircleIcon, Bars3Icon } from '@heroicons/react/24/solid'
+import { UserCircleIcon } from '@heroicons/react/24/solid'
 import { useSession, signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -21,21 +21,22 @@ const UserMenu = () => {
             <Popover.Button
               className={`
                   ${open ? 'shadow-md' : ''}
-                  inline-flex bg-white items-center rounded-full p-1 border hover:shadow-md focus:outline-none`}
+                  inline-flex w-10 h-10 bg-white items-center rounded-full justify-center hover:bg-gray-100 hover:shadow-md focus:outline-none relative`}
             >
-              <Bars3Icon className="w-6 h-6 ml-1 mr-3 text-slate-700" />
               {isUserLoading ? (
                 <Spinner />
               ) : session ? (
-                <Image
-                  className="object-cover object-center rounded-full aspect-square"
-                  src={session?.user?.image || ''}
-                  alt="Picture of the author"
-                  width={30}
-                  height={30}
-                />
+                <>
+                  <Image
+                    className="object-cover object-center rounded-full aspect-square"
+                    src={session?.user?.image || ''}
+                    alt="Picture of the author"
+                    width={30}
+                    height={30}
+                  />
+                </>
               ) : (
-                <UserCircleIcon className="w-8 h-8 text-slate-700" />
+                <UserCircleIcon className="w-8 h-8 text-gray-700" />
               )}
             </Popover.Button>
             <Transition
@@ -64,21 +65,16 @@ const UserMenu = () => {
                     )}
 
                     {session && (
-                      <Link
-                        href="/profile/[username]"
-                        as={`/profile/${session?.user?.username}`}
-                        className="px-4 py-2 text-sm font-normal text-left text-slate-700 hover:bg-gray-100"
-                      >
-                        Mi Perfil
-                      </Link>
+                      <>
+                        <Link
+                          href="/profile/[username]"
+                          as={`/profile/${session?.user?.username}`}
+                          className="px-4 py-2 text-sm font-normal text-left text-slate-700 hover:bg-gray-100"
+                        >
+                          Mi Perfil
+                        </Link>
+                      </>
                     )}
-
-                    <Link
-                      href="/add-club"
-                      className="px-4 py-2 text-sm font-normal text-left text-slate-700 hover:bg-gray-100"
-                    >
-                      ¿Tenes un Club?
-                    </Link>
 
                     {session && (
                       <button

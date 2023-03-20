@@ -7,6 +7,7 @@ import Avatar from '@/components/Screens/Profile/Avatar'
 import EditButton from '@/components/Screens/Profile/EditButton'
 import FollowButton from '@/components/Screens/Profile/FollowButton'
 import Spinner from '@/components/Layout/Spinner'
+import { trpc } from '@/utils/trpc'
 
 export default function Profile({
   user
@@ -17,6 +18,13 @@ export default function Profile({
 
   const isOwner = session?.user?.email === user.email
 
+  const { data: followers } = trpc.followings.getFollowers.useQuery({
+    userId: user.id
+  })
+
+  const { data: followings } = trpc.followings.getFollowings.useQuery({
+    userId: user.id
+  })
   return (
     <>
       <Head>
@@ -34,16 +42,23 @@ export default function Profile({
               <h2 className="text-lg font-medium sm:text-xl">
                 @{user.username}
               </h2>
-
-              {isLoading ? (
-                <Spinner />
-              ) : isOwner ? (
-                <EditButton />
-              ) : (
-                <FollowButton />
-              )}
             </div>
+            <ul>
+              <li className="text-sm font-medium text-gray-500">
+                {followers?.length} Seguidores
+              </li>
+              <li className="text-sm font-medium text-gray-500">
+                {followings?.length} Siguiendo
+              </li>
+            </ul>
             <h3 className="text-sm font-medium text-gray-500">{user.name}</h3>
+            {isLoading ? (
+              <Spinner />
+            ) : isOwner ? (
+              <EditButton />
+            ) : (
+              <FollowButton userId={user.id} />
+            )}
           </div>
         </header>
       </main>

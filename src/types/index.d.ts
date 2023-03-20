@@ -16,3 +16,13 @@ export interface User {
   image: string
   username: string
 }
+
+export interface Notification {
+  id: string
+  userId: string
+  creatorId: string
+  message: string
+  read: boolean
+  createdAt: string
+  creator: User
+}

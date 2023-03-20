@@ -1,6 +1,8 @@
 import { z } from 'zod'
 import { publicProcedure, router } from '../trpc'
 import { usersRouter } from './users'
+import { followNotificationsRouter } from './notifications'
+import { FollowingsRouter } from './followings'
 
 export const appRouter = router({
   hello: publicProcedure
@@ -14,7 +16,9 @@ export const appRouter = router({
         greeting: `hello ${input.text}`
       }
     }),
-  users: usersRouter
+  users: usersRouter,
+  notifications: followNotificationsRouter,
+  followings: FollowingsRouter
 })
 
 // export type definition of API

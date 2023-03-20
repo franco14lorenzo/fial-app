@@ -48,7 +48,31 @@ model User {
   accounts Account[]
   sessions Session[]
   clubs    Club[]
+  followings Followings[]
+  followNotifications FollowNotification[]
 }
+
+model Followings {
+  id        String   @id @default(cuid())
+  userId    String
+  following String
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model FollowNotification {
+  id        String   @id @default(cuid())
+  userId    String
+  creatorId String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  creator User @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+}
+
 
 model VerificationToken {
   identifier String
