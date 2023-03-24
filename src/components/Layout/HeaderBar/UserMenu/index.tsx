@@ -1,11 +1,11 @@
 import { Fragment } from 'react'
+import Spinner from '@/components/Layout/Spinner'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Popover, Transition } from '@headlessui/react'
 import { UserCircleIcon } from '@heroicons/react/24/solid'
 import { useSession, signIn } from 'next-auth/react'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import Spinner from '@/components/Layout/Spinner'
 
 const UserMenu = () => {
   const { data: session, status } = useSession()

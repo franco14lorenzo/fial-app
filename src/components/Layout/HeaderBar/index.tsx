@@ -1,7 +1,8 @@
-import UserMenu from '@/components/Layout/UserMenu'
+import UserMenu from '@/components/Layout/HeaderBar/UserMenu'
+import NotificationsMenu from '@/components/Layout/HeaderBar/NotificationsMenu'
 import Link from 'next/link'
-import NotificationsMenu from './NotificationsMenu'
 import { useSession } from 'next-auth/react'
+import AppLogo from '@/components/Layout/HeaderBar/AppLogo'
 
 const HeaderBar = ({ showUserMenu = true }) => {
   const { data: session, status } = useSession()
@@ -31,14 +32,3 @@ const HeaderBar = ({ showUserMenu = true }) => {
 }
 
 export default HeaderBar
-
-const AppLogo = () => {
-  return (
-    <Link
-      href="/"
-      className="font-bold text-center text-slate-600 hover:text-slate-400"
-    >
-      Fial App
-    </Link>
-  )
-}
