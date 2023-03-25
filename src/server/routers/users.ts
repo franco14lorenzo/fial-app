@@ -22,13 +22,14 @@ export const usersRouter = router({
       z.object({
         id: z.string(),
         name: z.string(),
-        username: z.string()
+        username: z.string(),
+        bio: z.string()
       })
     )
     .mutation(async ({ input }) => {
       const user = await prisma.user.update({
         where: { id: input.id },
-        data: { name: input.name, username: input.username }
+        data: { name: input.name, username: input.username, bio: input.bio }
       })
       return user
     })

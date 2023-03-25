@@ -15,6 +15,7 @@ export interface User {
   email: string
   image: string
   username: string
+  bio: string
 }
 
 export interface Notification {

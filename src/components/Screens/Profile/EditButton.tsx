@@ -15,7 +15,8 @@ import Spinner from '@/components/Layout/Spinner'
 const schema = z.object({
   image: z.any(),
   username: z.string().min(3).max(20),
-  name: z.string().min(3).max(20)
+  name: z.string().min(3).max(20),
+  bio: z.string().max(160)
 })
 
 type Schema = z.infer<typeof schema>
@@ -42,7 +43,8 @@ const EditButton = () => {
     defaultValues: {
       image: session?.user.image ?? '',
       username: session?.user.username,
-      name: session?.user.name ?? ''
+      name: session?.user.name ?? '',
+      bio: session?.user.bio ?? ''
     }
   })
 
@@ -81,7 +83,8 @@ const EditButton = () => {
       mutateUpdateInfo({
         id: session?.user.id as string,
         username: data.username,
-        name: data.name
+        name: data.name,
+        bio: data.bio
       })
     }
 
@@ -243,6 +246,22 @@ const EditButton = () => {
                               id="name"
                               className="flex-1 px-4 py-2 text-base text-center text-gray-900 placeholder-gray-500 bg-gray-100 rounded-md sm:text-left "
                               {...register('name', {
+                                required: 'Este campo es requerido'
+                              })}
+                            />
+                          </label>
+                          <label
+                            htmlFor="bio"
+                            className="flex flex-col items-center justify-center w-full h-full gap-4 my-2 sm:flex-row"
+                          >
+                            <span className="text-base font-medium text-gray-900 w-52 dark:text-white-darkMode">
+                              Bio
+                            </span>
+                            <input
+                              type="text"
+                              id="bio"
+                              className="flex-1 px-4 py-2 text-base text-center text-gray-900 placeholder-gray-500 bg-gray-100 rounded-md sm:text-left "
+                              {...register('bio', {
                                 required: 'Este campo es requerido'
                               })}
                             />

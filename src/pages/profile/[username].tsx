@@ -42,23 +42,28 @@ export default function Profile({
               <h2 className="text-lg font-medium sm:text-xl">
                 @{user.username}
               </h2>
+              {isLoading ? (
+                <Spinner />
+              ) : isOwner ? (
+                <EditButton />
+              ) : (
+                <FollowButton userId={user.id} />
+              )}
             </div>
-            <ul>
-              <li className="text-sm font-medium text-gray-500">
-                {followers?.length} Seguidores
+            <ul className="flex flex-row items-center justify-center w-full gap-4 text-sm font-medium sm:justify-start">
+              <li className="text-sm flex items-center font-medium gap-1 flex-col sm:flex-row">
+                <span className="font-bold">{followers?.length}</span>
+                <span>Seguidores</span>
               </li>
-              <li className="text-sm font-medium text-gray-500">
-                {followings?.length} Siguiendo
+              <li className="text-sm flex items-center font-medium gap-1 flex-col sm:flex-row">
+                <span className="font-bold">{followings?.length}</span>
+                <span>Seguidos</span>
               </li>
             </ul>
-            <h3 className="text-sm font-medium text-gray-500">{user.name}</h3>
-            {isLoading ? (
-              <Spinner />
-            ) : isOwner ? (
-              <EditButton />
-            ) : (
-              <FollowButton userId={user.id} />
-            )}
+            <div className="flex flex-col items-start justify-center w-full gap-1 sm:justify-start">
+              <h3 className="text-sm font-medium">{user.name}</h3>
+              <p className="text-sm ">{user.bio}</p>
+            </div>
           </div>
         </header>
       </main>
