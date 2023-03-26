@@ -2,7 +2,13 @@ import { useSession } from 'next-auth/react'
 import { trpc } from '@/utils/trpc'
 import { useEffect } from 'react'
 
-const FollowButton = ({ userId }: { userId: string }) => {
+const FollowButton = ({
+  userId,
+  username
+}: {
+  userId: string
+  username: string
+}) => {
   const { data: session } = useSession()
 
   const { data: isFollowing, isLoading: isFollowingLoading } =
@@ -10,8 +16,10 @@ const FollowButton = ({ userId }: { userId: string }) => {
       userId: session?.user?.id as string,
       following: userId
     })
+
   const { mutate: follow, isSuccess } =
     trpc.followings.createFollowing.useMutation()
+
   const { mutate: unfollow, isSuccess: isUnfollowSuccess } =
     trpc.followings.deleteFollowing.useMutation()
   const { mutate } = trpc.notifications.createNotification.useMutation()
@@ -24,6 +32,11 @@ const FollowButton = ({ userId }: { userId: string }) => {
         read: false,
         creatorId: session?.user?.id as string
       })
+      fetch(
+        `/api/revalidate?secret=KN3p=JQ1p4ijZFuWK92w0vepaPkWb92aJ0n816um=ho=&path=/profile/${username}`
+      ).then(() => {
+        window.location.replace(`/profile/${username}`)
+      })
     }
 
     if (isUnfollowSuccess) {
@@ -33,8 +46,20 @@ const FollowButton = ({ userId }: { userId: string }) => {
         read: false,
         creatorId: session?.user?.id as string
       })
+      fetch(
+        `/api/revalidate?secret=KN3p=JQ1p4ijZFuWK92w0vepaPkWb92aJ0n816um=ho=&path=/profile/${username}`
+      ).then(() => {
+        window.location.replace(`/profile/${username}`)
+      })
     }
-  }, [isSuccess, mutate, userId, session?.user?.id, isUnfollowSuccess])
+  }, [
+    isSuccess,
+    mutate,
+    userId,
+    session?.user?.id,
+    isUnfollowSuccess,
+    username
+  ])
 
   const handleClick = () => {
     isFollowing

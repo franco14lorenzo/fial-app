@@ -7,10 +7,11 @@ import Avatar from '@/components/Screens/Profile/Avatar'
 import EditButton from '@/components/Screens/Profile/EditButton'
 import FollowButton from '@/components/Screens/Profile/FollowButton'
 import Spinner from '@/components/Layout/Spinner'
-import { trpc } from '@/utils/trpc'
 
 export default function Profile({
-  user
+  user,
+  followers,
+  followings
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { data: session, status } = useSession()
 
@@ -18,13 +19,6 @@ export default function Profile({
 
   const isOwner = session?.user?.email === user.email
 
-  const { data: followers } = trpc.followings.getFollowers.useQuery({
-    userId: user.id
-  })
-
-  const { data: followings } = trpc.followings.getFollowings.useQuery({
-    userId: user.id
-  })
   return (
     <>
       <Head>
@@ -47,7 +41,7 @@ export default function Profile({
               ) : isOwner ? (
                 <EditButton />
               ) : (
-                <FollowButton userId={user.id} />
+                <FollowButton userId={user.id} username={user.username} />
               )}
             </div>
             <ul className="flex flex-row items-center justify-center w-full gap-4 text-sm font-medium sm:justify-start">
@@ -83,8 +77,25 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       notFound: true
     }
   }
+
+  const followers = await prisma.followings.findMany({
+    where: {
+      following: user.id
+    }
+  })
+
+  const followings = await prisma.followings.findMany({
+    where: {
+      userId: user.id
+    }
+  })
+
   return {
-    props: { user: JSON.parse(JSON.stringify(user)) }
+    props: {
+      user: JSON.parse(JSON.stringify(user)),
+      followers: JSON.parse(JSON.stringify(followers)),
+      followings: JSON.parse(JSON.stringify(followings))
+    }
   }
 }
 
