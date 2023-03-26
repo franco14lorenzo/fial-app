@@ -36,6 +36,7 @@ const EditButton = () => {
   } = trpc.users.updateInfo.useMutation()
 
   const { data: session } = useSession()
+
   const [isOpen, setIsOpen] = useState(false)
 
   const { register, handleSubmit, watch } = useForm<Schema>({
@@ -62,6 +63,7 @@ const EditButton = () => {
   }, [watchImage])
 
   const onSubmit = async (data: Schema) => {
+    console.log(data)
     setIsSubmitting(true)
 
     if (data.image[0] instanceof File) {
@@ -78,7 +80,8 @@ const EditButton = () => {
 
     if (
       data.username !== session?.user.username ||
-      data.name !== session?.user.name
+      data.name !== session?.user.name ||
+      data.bio !== session?.user.bio
     ) {
       mutateUpdateInfo({
         id: session?.user.id as string,
