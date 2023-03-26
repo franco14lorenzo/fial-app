@@ -2,6 +2,8 @@ import { router, publicProcedure } from '../trpc'
 import { z } from 'zod'
 import prisma from '@/lib/prisma'
 
+/* const NOTIFICATIONS_PER_PAGE = 12 */
+
 export const followNotificationsRouter = router({
   createNotification: publicProcedure
     .input(
@@ -56,10 +58,12 @@ export const followNotificationsRouter = router({
     .input(
       z.object({
         userId: z.string()
+        /*       page: z.number().optional() */
       })
     )
     .query(async ({ input }) => {
       try {
+        /*      const page = input.page || 1 */
         const notifications = await prisma.followNotification.findMany({
           where: {
             userId: input.userId
@@ -70,6 +74,8 @@ export const followNotificationsRouter = router({
           orderBy: {
             createdAt: 'desc'
           }
+          /*  take: NOTIFICATIONS_PER_PAGE,
+          skip: (page - 1) * NOTIFICATIONS_PER_PAGE */
         })
         return notifications
       } catch (error) {

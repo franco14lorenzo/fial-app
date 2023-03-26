@@ -8,7 +8,6 @@ import NotificationsList from '@/components/Layout/HeaderBar/NotificationsMenu/N
 
 const NotificationsMenu = () => {
   const [refresh, setRefresh] = useState(false)
-  const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0)
   const { data: session } = useSession()
 
   const {
@@ -19,14 +18,12 @@ const NotificationsMenu = () => {
     userId: session?.user?.id as string
   })
 
-  useEffect(() => {
-    const count = notifications?.filter((n) => !n.read)?.length || 0
-    setUnreadNotificationsCount(count)
-  }, [notifications])
+  const unreadNotificationsCount =
+    notifications?.filter((n) => !n.read)?.length || 0
 
   useEffect(() => {
     refetch()
-  }, [refresh, refetch])
+  }, [unreadNotificationsCount, refetch, refresh])
 
   const isUserHasNotifications = unreadNotificationsCount > 0
 
