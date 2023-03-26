@@ -13,7 +13,7 @@ export const getTimeAgo = (date: string) => {
   const years = Math.floor(days / 365)
 
   if (seconds < 60) {
-    return 'just now'
+    return 'ahora'
   }
   if (minutes < 60) {
     return minutes + 'm'
@@ -25,10 +25,10 @@ export const getTimeAgo = (date: string) => {
     return days + 'd'
   }
   if (weeks < 4) {
-    return weeks + 'w'
+    return weeks + `sem`
   }
   if (months < 12) {
-    return months + 'mo'
+    return months + ` mes${months > 1 ? 'es' : ''}`
   }
-  return years + 'y'
+  return years + ` año${years > 1 ? 's' : ''}`
 }
