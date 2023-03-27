@@ -35,7 +35,7 @@ export const authOptions: NextAuthOptions = {
           ...session.user,
           id: user.id as string,
           username: user.username as string,
-          bio: user.bio as string
+          bio: (user.bio as string) || ''
         }
       }
 
@@ -54,7 +54,7 @@ export const authOptions: NextAuthOptions = {
         user.user.id &&
         (await prisma.user.update({
           where: { id: user.user.id },
-          data: { username, image: `avatars/${fileName.path}`, bio: '' }
+          data: { username, image: `avatars/${fileName.path}` }
         }))
     }
   }
