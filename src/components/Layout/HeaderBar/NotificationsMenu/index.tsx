@@ -3,7 +3,7 @@ import { Popover, Transition } from '@headlessui/react'
 import { BellIcon } from '@heroicons/react/24/outline'
 import { useSession } from 'next-auth/react'
 import { trpc } from '@/utils/trpc'
-import { Notification } from '@/types'
+import { Notification, User } from '@/types'
 import NotificationsList from '@/components/Layout/HeaderBar/NotificationsMenu/NotificationsList'
 
 const NotificationsMenu = () => {
@@ -76,7 +76,11 @@ const NotificationsMenu = () => {
                         )}
                         {notifications && (
                           <NotificationsList
-                            notifications={notifications as Notification[]}
+                            notifications={
+                              notifications as (Notification & {
+                                creator: User
+                              })[]
+                            }
                             setRefresh={setRefresh}
                           />
                         )}

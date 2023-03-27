@@ -17,6 +17,9 @@ export interface User {
   image: string
   username: string
   bio: string
+  createdAt?: string
+  emailVerified: string | null
+  updatedAt?: string
 }
 
 export interface Notification {
