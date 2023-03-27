@@ -15,13 +15,13 @@ const UserMenu = () => {
 
   return (
     <>
-      <Popover className="relative">
+      <Popover className="relative flex">
         {({ open }) => (
           <>
             <Popover.Button
               className={`
                   ${open ? 'shadow-md' : ''}
-                  inline-flex w-10 h-10 bg-white items-center rounded-full justify-center hover:bg-gray-100 hover:shadow-md focus:outline-none relative`}
+                  inline-flex p-[5px] bg-white items-center rounded-full justify-center hover:bg-gray-100 hover:shadow-md focus:outline-none relative`}
             >
               {isUserLoading ? (
                 <Spinner />
@@ -30,13 +30,13 @@ const UserMenu = () => {
                   <Image
                     className="object-cover object-center rounded-full aspect-square"
                     src={session?.user?.image || ''}
-                    alt="Picture of the author"
+                    alt="Avatar of the user"
                     width={30}
                     height={30}
                   />
                 </>
               ) : (
-                <UserCircleIcon className="w-8 h-8 text-gray-700" />
+                <UserCircleIcon className="w-10 h-10 text-gray-700" />
               )}
             </Popover.Button>
             <Transition

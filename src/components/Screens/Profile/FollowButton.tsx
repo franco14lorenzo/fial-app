@@ -80,7 +80,7 @@ const FollowButton = ({
       {isFollowingLoading
         ? 'Cargando...'
         : isFollowing
-        ? 'Dejar de seguir'
+        ? 'Siguiendo'
         : 'Seguir'}
     </button>
   )

@@ -37,7 +37,7 @@ model Session {
 model User {
   id            String    @id @default(cuid())
   name          String?
-  username     String?   @unique
+  username      String?   @unique
   email         String?   @unique
   emailVerified DateTime?
   image         String?
@@ -46,21 +46,23 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  accounts Account[]
-  sessions Session[]
-  clubs    Club[]
-  followings Followings[]
+  accounts            Account[]
+  sessions            Session[]
+  clubs               Club[]
+  followings          Followings[]         @relation("userFollowings")
+  followedBy          Followings[]         @relation("FollowingsToUser")
   followNotifications FollowNotification[]
 }
 
 model Followings {
-  id        String   @id @default(cuid())
+  id        String @id @default(cuid())
   userId    String
   following String
 
   createdAt DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user          User @relation("userFollowings", fields: [userId], references: [id])
+  followingUser User @relation("FollowingsToUser", fields: [following], references: [id])
 }
 
 model FollowNotification {
@@ -73,7 +75,6 @@ model FollowNotification {
 
   creator User @relation(fields: [creatorId], references: [id], onDelete: Cascade)
 }
-
 
 model VerificationToken {
   identifier String

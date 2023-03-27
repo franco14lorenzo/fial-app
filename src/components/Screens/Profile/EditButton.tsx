@@ -63,7 +63,6 @@ const EditButton = () => {
   }, [watchImage])
 
   const onSubmit = async (data: Schema) => {
-    console.log(data)
     setIsSubmitting(true)
 
     if (data.image[0] instanceof File) {

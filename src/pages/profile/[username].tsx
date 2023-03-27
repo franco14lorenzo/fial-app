@@ -7,6 +7,8 @@ import Avatar from '@/components/Screens/Profile/Avatar'
 import EditButton from '@/components/Screens/Profile/EditButton'
 import FollowButton from '@/components/Screens/Profile/FollowButton'
 import Spinner from '@/components/Layout/Spinner'
+import FollowersModal from '@/components/Screens/Profile/FollowersModal'
+import FollowingsModal from '@/components/Screens/Profile/FollowingsModal'
 
 export default function Profile({
   user,
@@ -44,19 +46,17 @@ export default function Profile({
                 <FollowButton userId={user.id} username={user.username} />
               )}
             </div>
-            <ul className="flex flex-row items-center justify-center w-full gap-4 text-sm font-medium sm:justify-start">
-              <li className="text-sm flex items-center font-medium gap-1 flex-col sm:flex-row">
-                <span className="font-bold">{followers?.length}</span>
-                <span>Seguidores</span>
-              </li>
-              <li className="text-sm flex items-center font-medium gap-1 flex-col sm:flex-row">
-                <span className="font-bold">{followings?.length}</span>
-                <span>Seguidos</span>
-              </li>
-            </ul>
-            <div className="flex flex-col items-start justify-center w-full gap-1 sm:justify-start">
-              <h3 className="text-sm font-medium">{user.name}</h3>
-              <p className="text-sm ">{user.bio}</p>
+            <div className="flex flex-col items-center justify-center w-full gap-1 py-2">
+              <h3 className="text-sm font-medium w-full text-center sm:text-left">
+                {user.name}
+              </h3>
+              <p className="text-sm w-full text-center sm:text-left">
+                {user.bio}
+              </p>
+            </div>
+            <div className="flex flex-row items-center justify-center w-full gap-4 text-sm font-medium sm:justify-start">
+              <FollowersModal followers={followers} />
+              <FollowingsModal followings={followings} />
             </div>
           </div>
         </header>
@@ -79,15 +79,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 
   const followers = await prisma.followings.findMany({
-    where: {
-      following: user.id
-    }
+    where: { following: user?.id },
+    include: { user: true }
   })
 
   const followings = await prisma.followings.findMany({
-    where: {
-      userId: user.id
-    }
+    where: { userId: user?.id },
+    include: { followingUser: true }
   })
 
   return {
