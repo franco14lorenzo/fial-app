@@ -21,7 +21,7 @@ export default function Profile({
 
   const isLoading = status === 'loading'
 
-  const isOwner = session?.user?.email === user.email
+  const isOwner = session?.user?.email === user?.email
 
   const { isFallback } = useRouter()
 
