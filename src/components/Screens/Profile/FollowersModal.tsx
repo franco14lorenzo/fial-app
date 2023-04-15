@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import FollowButton from '@/components/Screens/Profile/FollowButton'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -6,6 +6,7 @@ import { XMarkIcon } from '@heroicons/react/24/solid'
 import { Dialog, Transition } from '@headlessui/react'
 import { useSession } from 'next-auth/react'
 import type { User } from 'src/types'
+import { useRouter } from 'next/router'
 
 const FollowersModal = ({
   followers
@@ -14,6 +15,12 @@ const FollowersModal = ({
 }) => {
   const { data: session } = useSession()
   const [isOpen, setIsOpen] = useState(false)
+
+  const { asPath } = useRouter()
+
+  useEffect(() => {
+    setIsOpen(false)
+  }, [asPath])
 
   return (
     <>
@@ -72,7 +79,6 @@ const FollowersModal = ({
                         key={follower.id}
                         className="flex items-center justify-between w-full p-2 my-2 border-b cursor-pointer hover:bg-gray-100"
                         href={`/profile/${follower.user.username}`}
-                        onClick={() => setIsOpen(false)}
                       >
                         <div className="flex items-center justify-start w-full gap-2">
                           <Image

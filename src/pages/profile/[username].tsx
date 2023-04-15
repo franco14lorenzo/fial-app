@@ -9,6 +9,8 @@ import FollowButton from '@/components/Screens/Profile/FollowButton'
 import Spinner from '@/components/Layout/Spinner'
 import FollowersModal from '@/components/Screens/Profile/FollowersModal'
 import FollowingsModal from '@/components/Screens/Profile/FollowingsModal'
+import { useRouter } from 'next/router'
+import { PlusCircleIcon } from '@heroicons/react/24/outline'
 
 export default function Profile({
   user,
@@ -21,6 +23,8 @@ export default function Profile({
 
   const isOwner = session?.user?.email === user.email
 
+  const { isFallback } = useRouter()
+
   return (
     <>
       <Head>
@@ -30,37 +34,52 @@ export default function Profile({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HeaderBar />
-      <main className="w-full h-full mx-auto max-w-5xl pt-[63px]">
-        <header className="flex flex-col items-start w-full px-16 py-8 sm:flex-row">
-          <Avatar user={user} />
-          <div className="flex flex-col items-center justify-start flex-1 w-full gap-2 sm:items-start sm:pl-16">
-            <div className="flex flex-col items-center justify-center flex-1 w-full gap-2 sm:gap-8 sm:flex-row sm:justify-start">
-              <h2 className="text-lg font-medium sm:text-xl">
-                @{user.username}
-              </h2>
-              {isLoading ? (
-                <Spinner />
-              ) : isOwner ? (
-                <EditButton />
-              ) : (
-                <FollowButton userId={user.id} username={user.username} />
-              )}
+      {isFallback ? (
+        <Spinner />
+      ) : (
+        <main className="w-full h-full mx-auto max-w-5xl pt-[63px]">
+          <header className="flex flex-col items-start w-full px-16 py-8 sm:flex-row">
+            <Avatar user={user} />
+            <div className="flex flex-col items-center justify-start flex-1 w-full gap-2 sm:items-start sm:pl-16">
+              <div className="flex flex-col items-center justify-center flex-1 w-full gap-2 sm:gap-8 sm:flex-row sm:justify-start">
+                <h2 className="text-lg font-medium sm:text-xl">
+                  @{user.username}
+                </h2>
+                {isLoading ? (
+                  <Spinner />
+                ) : isOwner ? (
+                  <EditButton />
+                ) : (
+                  <FollowButton userId={user.id} username={user.username} />
+                )}
+              </div>
+              <div className="flex flex-col items-center justify-center w-full gap-1 py-2">
+                <h3 className="text-sm font-medium w-full text-center sm:text-left">
+                  {user.name}
+                </h3>
+                <p className="text-sm w-full text-center sm:text-left">
+                  {user.bio}
+                </p>
+              </div>
+              <div className="flex flex-row items-center justify-center w-full gap-4 text-sm font-medium sm:justify-start">
+                <FollowersModal followers={followers} />
+                <FollowingsModal followings={followings} />
+                <div className="text-sm flex items-center font-medium gap-1 flex-col sm:flex-row ">
+                  <span className="font-black">0</span>
+                  <span className="font-light">Matches</span>
+                </div>
+              </div>
             </div>
-            <div className="flex flex-col items-center justify-center w-full gap-1 py-2">
-              <h3 className="text-sm font-medium w-full text-center sm:text-left">
-                {user.name}
-              </h3>
-              <p className="text-sm w-full text-center sm:text-left">
-                {user.bio}
-              </p>
-            </div>
-            <div className="flex flex-row items-center justify-center w-full gap-4 text-sm font-medium sm:justify-start">
-              <FollowersModal followers={followers} />
-              <FollowingsModal followings={followings} />
-            </div>
-          </div>
-        </header>
-      </main>
+          </header>
+
+          <section className="flex flex-col items-center justify-center w-full px-16 py-8">
+            <button className="px-4 py-2 text-sm font-medium text-white bg-emerald-500 rounded-md hover:bg-emerald-600 flex items-center justify-center">
+              <PlusCircleIcon className="w-5 h-5 mr-2" />
+              New Match
+            </button>
+          </section>
+        </main>
+      )}
     </>
   )
 }
@@ -106,6 +125,6 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false
+    fallback: true
   }
 }
