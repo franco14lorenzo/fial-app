@@ -28,7 +28,7 @@ const AddClubForm = ({ userId }: { userId: string }) => {
           type="text"
           id="name"
           {...register('name')}
-          className="w-full px-4 py-2 border rounded-md border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+          className="w-full px-4 py-2 border rounded-md border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
         />
         <label
           htmlFor="description"
@@ -39,7 +39,7 @@ const AddClubForm = ({ userId }: { userId: string }) => {
         <textarea
           {...register('description')}
           id="description"
-          className="w-full px-4 py-2 border rounded-md border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+          className="w-full px-4 py-2 border rounded-md border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
         />
         <label
           htmlFor="schedule"
@@ -51,7 +51,7 @@ const AddClubForm = ({ userId }: { userId: string }) => {
           type="text"
           {...register('schedule')}
           id="schedule"
-          className="w-full px-4 py-2 border rounded-md border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+          className="w-full px-4 py-2 border rounded-md border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
         />
         <label
           htmlFor="address"
@@ -63,7 +63,7 @@ const AddClubForm = ({ userId }: { userId: string }) => {
           type="text"
           {...register('address')}
           id="address"
-          className="w-full px-4 py-2 border rounded-md border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+          className="w-full px-4 py-2 border rounded-md border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
         />
         <label
           htmlFor="phone"
@@ -75,7 +75,7 @@ const AddClubForm = ({ userId }: { userId: string }) => {
           type="text"
           {...register('phone')}
           id="phone"
-          className="w-full px-4 py-2 border rounded-md border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+          className="w-full px-4 py-2 border rounded-md border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
         />
         <label
           htmlFor="latitude"
@@ -87,7 +87,7 @@ const AddClubForm = ({ userId }: { userId: string }) => {
           type="text"
           {...register('latitude', { valueAsNumber: true })}
           id="latitude"
-          className="w-full px-4 py-2 border rounded-md border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+          className="w-full px-4 py-2 border rounded-md border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
         />
         <label
           htmlFor="longitude"
@@ -99,7 +99,7 @@ const AddClubForm = ({ userId }: { userId: string }) => {
           type="text"
           {...register('longitude', { valueAsNumber: true })}
           id="longitude"
-          className="w-full px-4 py-2 border rounded-md border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+          className="w-full px-4 py-2 border rounded-md border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
         />
         {Object.keys(errors)?.length > 0 && (
           <div className="flex flex-col items-start justify-start w-full gap-1 text-red-500">
@@ -110,7 +110,7 @@ const AddClubForm = ({ userId }: { userId: string }) => {
         )}
         <button
           type="submit"
-          className="w-full px-4 py-2 mt-4 font-semibold text-white rounded-md bg-emerald-500 hover:bg-emerald-600"
+          className="w-full px-4 py-2 mt-4 font-semibold text-white rounded-md bg-indigo-500 hover:bg-indigo-600"
         >
           Enviar
         </button>

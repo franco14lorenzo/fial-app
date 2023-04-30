@@ -23,7 +23,7 @@ export default function AddClubPage({ userId }: { userId: string }) {
           <h1 className="w-full mt-5 text-3xl font-bold md:text-5xl text-slate-700 md:mt-0">
             Suma tu Club.
           </h1>
-          <h2 className="w-full text-3xl font-bold text-emerald-600 md:text-5xl">
+          <h2 className="w-full text-3xl font-bold text-indigo-600 md:text-5xl">
             Completa el formulario para agregar tu club.
           </h2>
           <AddClubForm userId={userId} />

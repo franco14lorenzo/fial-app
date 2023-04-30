@@ -51,7 +51,7 @@ const NotificationsList = ({
           className={`px-4 py-2 transition-colors duration-[5000ms]
            ${
              !notification.read && !isRead
-               ? 'bg-emerald-50 hover:bg-emerald-100'
+               ? 'bg-indigo-50 hover:bg-indigo-100'
                : 'hover:bg-gray-100'
            } `}
         >
@@ -72,7 +72,7 @@ const NotificationsList = ({
             <span className="flex-1 font-medium">
               <Link
                 href={`/profile/${notification.creator.username}`}
-                className="text-emerald-500 hover:underline"
+                className="text-indigo-500 hover:underline"
               >
                 @{notification.creator.username}{' '}
               </Link>

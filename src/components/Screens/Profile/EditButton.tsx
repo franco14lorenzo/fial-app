@@ -132,7 +132,7 @@ const EditButton = () => {
   return (
     <>
       <button
-        className="px-4 py-2 text-sm font-medium text-white rounded-full bg-emerald-500 hover:bg-emerald-600"
+        className="px-4 py-2 text-sm font-medium text-white rounded-full bg-indigo-500 hover:bg-indigo-600"
         onClick={handleClick}
       >
         Editar
@@ -272,7 +272,7 @@ const EditButton = () => {
                             <span className="hidden text-base font-medium text-gray-900 w-52 dark:text-white-darkMode sm:inline-block"></span>
                             <button
                               type="submit"
-                              className="w-24 px-4 py-2 mx-auto text-sm font-medium text-white rounded-full bg-emerald-500 hover:bg-emerald-600"
+                              className="w-24 px-4 py-2 mx-auto text-sm font-medium text-white rounded-full bg-indigo-500 hover:bg-indigo-600"
                             >
                               {isSubmitting ? (
                                 <Spinner color="white" background="#d1d5db" />

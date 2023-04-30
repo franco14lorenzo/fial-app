@@ -19,7 +19,7 @@ export default function AddClubPage() {
           <h1 className="text-3xl md:text-5xl font-bold text-slate-700 w-full mt-10 md:mt-0">
             Agrega tu Club.
           </h1>
-          <h2 className=" text-emerald-600 font-bold text-3xl md:text-5xl w-full">
+          <h2 className=" text-indigo-600 font-bold text-3xl md:text-5xl w-full">
             Haz que sea parte de FialApp.
           </h2>
           <p className="text-slate-600 w-full md:mt-4 text-lg max-w-[40ch]">
@@ -32,7 +32,7 @@ export default function AddClubPage() {
             </p>
             <Link
               href="/add-club/form"
-              className=" text-white font-bold py-2 px-4 rounded-full bg-gradient-to-tr from-emerald-700 via-emerald-900 to-emerald-500 hover:shadow-md hover:scale-105 transition-all duration-100 ease-in-out text-center w-48 mx-auto"
+              className=" text-white font-bold py-2 px-4 rounded-full bg-gradient-to-tr from-indigo-700 via-indigo-900 to-indigo-500 hover:shadow-md hover:scale-105 transition-all duration-100 ease-in-out text-center w-48 mx-auto"
             >
               Agregar Club
             </Link>

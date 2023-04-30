@@ -47,7 +47,7 @@ const SearchClub = ({
           placeholder="Buscar clubes"
           onFocus={() => setIsOpen(true)}
         />
-        <button className="flex flex-row items-center justify-center w-10 h-10 text-gray-400 rounded-full bg-emerald-500 hover:bg-emerald-600 ">
+        <button className="flex flex-row items-center justify-center w-10 h-10 text-gray-400 rounded-full bg-indigo-500 hover:bg-indigo-600 ">
           <MagnifyingGlassIcon className="flex-1 w-6 h-6 text-white" />
         </button>
       </div>

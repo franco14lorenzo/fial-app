@@ -25,7 +25,7 @@ const FollowersModal = ({
   return (
     <>
       <button
-        className="text-sm flex items-center font-medium gap-1 flex-col sm:flex-row hover:text-emerald-500"
+        className="text-sm flex items-center font-medium gap-1 flex-col sm:flex-row hover:text-indigo-500"
         onClick={() => setIsOpen(true)}
       >
         <span className="font-black">{followings?.length}</span>
