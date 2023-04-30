@@ -26,7 +26,7 @@ export default function Profile({
 
   const { isFallback } = useRouter()
 
-  const [followersCount, setFollowersCount] = useState(followers.length)
+  const [followersCount, setFollowersCount] = useState(followers?.length || 0)
 
   return (
     <>
