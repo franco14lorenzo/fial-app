@@ -11,6 +11,7 @@ import FollowersModal from '@/components/Screens/Profile/FollowersModal'
 import FollowingsModal from '@/components/Screens/Profile/FollowingsModal'
 import { useRouter } from 'next/router'
 import { PlusCircleIcon } from '@heroicons/react/24/outline'
+import { useState } from 'react'
 
 export default function Profile({
   user,
@@ -24,6 +25,8 @@ export default function Profile({
   const isOwner = session?.user?.email === user?.email
 
   const { isFallback } = useRouter()
+
+  const [followersCount, setFollowersCount] = useState(followers.length)
 
   return (
     <>
@@ -50,7 +53,11 @@ export default function Profile({
                 ) : isOwner ? (
                   <EditButton />
                 ) : (
-                  <FollowButton userId={user.id} username={user.username} />
+                  <FollowButton
+                    userId={user.id}
+                    username={user.username}
+                    setFollowersCount={setFollowersCount}
+                  />
                 )}
               </div>
               <div className="flex flex-col items-center justify-center w-full gap-1 py-2">
@@ -62,7 +69,11 @@ export default function Profile({
                 </p>
               </div>
               <div className="flex flex-row items-center justify-center w-full gap-4 text-sm font-medium sm:justify-start">
-                <FollowersModal followers={followers} />
+                <FollowersModal
+                  followers={followers}
+                  followersCount={followersCount}
+                  setFollowersCount={setFollowersCount}
+                />
                 <FollowingsModal followings={followings} />
                 <div className="text-sm flex items-center font-medium gap-1 flex-col sm:flex-row ">
                   <span className="font-black">0</span>
@@ -73,7 +84,7 @@ export default function Profile({
           </header>
 
           <section className="flex flex-col items-center justify-center w-full px-16 py-8">
-            <button className="px-4 py-2 text-sm font-medium text-white bg-emerald-500 rounded-md hover:bg-emerald-600 flex items-center justify-center">
+            <button className="px-4 py-2 text-sm font-medium text-white bg-indigo-500 rounded-md hover:bg-indigo-600 flex items-center justify-center">
               <PlusCircleIcon className="w-5 h-5 mr-2" />
               New Match
             </button>
