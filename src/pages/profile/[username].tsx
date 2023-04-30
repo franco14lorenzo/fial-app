@@ -74,7 +74,10 @@ export default function Profile({
                   followersCount={followersCount}
                   setFollowersCount={setFollowersCount}
                 />
-                <FollowingsModal followings={followings} />
+                <FollowingsModal
+                  followings={followings}
+                  setFollowersCount={setFollowersCount}
+                />
                 <div className="text-sm flex items-center font-medium gap-1 flex-col sm:flex-row ">
                   <span className="font-black">0</span>
                   <span className="font-light">Matches</span>

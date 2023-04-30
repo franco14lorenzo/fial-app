@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react'
+import { Fragment, useState, useEffect, Dispatch, SetStateAction } from 'react'
 import FollowButton from '@/components/Screens/Profile/FollowButton'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -8,10 +8,12 @@ import { useSession } from 'next-auth/react'
 import type { User } from 'src/types'
 import { useRouter } from 'next/router'
 
-const FollowersModal = ({
-  followings
+const FollowingsModal = ({
+  followings,
+  setFollowersCount
 }: {
   followings: { id: string; followingUser: User }[]
+  setFollowersCount: Dispatch<SetStateAction<number>>
 }) => {
   const { data: session } = useSession()
   const [isOpen, setIsOpen] = useState(false)
@@ -102,6 +104,7 @@ const FollowersModal = ({
                             <FollowButton
                               userId={following.followingUser.id}
                               username={following.followingUser.username}
+                              setFollowersCount={setFollowersCount}
                             />
                           )}
                         </div>
@@ -118,4 +121,4 @@ const FollowersModal = ({
   )
 }
 
-export default FollowersModal
+export default FollowingsModal
