@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react'
+import { Fragment, useState, useEffect, Dispatch, SetStateAction } from 'react'
 import FollowButton from '@/components/Screens/Profile/FollowButton'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,9 +9,13 @@ import type { User } from 'src/types'
 import { useRouter } from 'next/router'
 
 const FollowersModal = ({
-  followers
+  followers,
+  followersCount,
+  setFollowersCount
 }: {
   followers: { id: string; user: User }[]
+  followersCount: number
+  setFollowersCount: Dispatch<SetStateAction<number>>
 }) => {
   const { data: session } = useSession()
   const [isOpen, setIsOpen] = useState(false)
@@ -25,10 +29,10 @@ const FollowersModal = ({
   return (
     <>
       <button
-        className="text-sm flex items-center font-medium gap-1 flex-col sm:flex-row hover:text-emerald-500"
+        className="text-sm flex items-center font-medium gap-1 flex-col sm:flex-row hover:text-indigo-500"
         onClick={() => setIsOpen(true)}
       >
-        <span className="font-black">{followers?.length}</span>
+        <span className="font-black">{followersCount}</span>
         <span className="font-light">Seguidores</span>
       </button>
       <Transition appear show={isOpen} as={Fragment}>
@@ -102,6 +106,7 @@ const FollowersModal = ({
                             <FollowButton
                               userId={follower.user.id}
                               username={follower.user.username}
+                              setFollowersCount={setFollowersCount}
                             />
                           )}
                         </div>
